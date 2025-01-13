@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 
 
+
 //create your first component
 const Home = () => {
 	const cardData = [
@@ -21,55 +22,23 @@ const Home = () => {
 	];
 
 	const [selected, setSelected] = useState([])
+
+	const  handleClick = (card)  => {
+
+	}
+
 	return (
-		<div
-		style={{
-			display: "flex",
-			flexWrap: "wrap",
-			gap: "24px",
-			justifyContent: "center",
-			alignItems: "center",
-			height: "100vh", // Ajustar al tamaño completo de la ventana
-			padding: "16px",
-			boxSizing: "border-box",
-		}}
-	>
-		{cardData.map((item) => (
-			<div
-				key={item.id}
-				style={{
-					width: "calc(25% - 12px)", // Cuatro tarjetas por fila
-					height: "calc(25% - 12px)", // Tamaño proporcional para ajustar al viewport
-					position: "relative",
-					border: "1px solid #ddd",
-					borderRadius: "8px",
-					backgroundColor: "#f8f9fa",
-					boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-				}}
-			>
+		<div>
+			{cardData.map((item) => (
 				<div
-					style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-					}}
+					key={item.id}	
+					className="card"
+					onClick={()=>handleClick(item)}
 				>
-					<span
-						style={{
-							fontSize: "calc(1.5vw + 1rem)", // Tamaño dinámico del ícono
-						}}
-					>
-						{item.content}
-					</span>
+					{item.content}
 				</div>
-			</div>
-		))}
-	</div>
+			))}
+		</div>
 
 	);
 };
