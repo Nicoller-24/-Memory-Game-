@@ -46,7 +46,7 @@ const Home = () => {
 	const handleClick = (card) => {
 		if (selected.length < 2 && !selected.includes(card)) {
 			setSelected(prev => prev = [...prev, card]);
-		}
+		} 
 	}
 
 	const shuffle = () => cardData.sort(() => Math.random() -0.5 )
@@ -55,17 +55,29 @@ const Home = () => {
 		setCards(prev => prev = shuffle())
 	}, [])
 
+	const handlePlayAgain = () => {
+		setCards(prev => prev = shuffle())
+		setSelected(prev => prev = []);
+
+	}
+
 	return (
-		<div className="memory-game">
+		<div className="memory-game row">
 			{cards.map((card) => (
 				<div
 					key={card.id}	
-					className="card"
+					className={`col-4 card ${selected.includes(card) || card.matched? 'visible flip-in-hor-bottom':'wobble-hor-bottom'}`}
 					onClick={()=>handleClick(card)}
 				>
-					{card.content}
+					{selected.includes(card) || card.matched? card.content : '❓'}
+					
 				</div>
 			))}
+			<button
+				onClick={()=> handlePlayAgain()}
+			>
+				Play again
+			</button>
 		</div>
 
 	);
