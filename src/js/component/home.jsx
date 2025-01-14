@@ -22,20 +22,48 @@ const Home = () => {
 	];
 
 	const [selected, setSelected] = useState([])
+	const [cards, setCards] = useState([])
 
-	const  handleClick = (card)  => {
+	useEffect(() => {
+		if (selected.length === 2) {
+			if (selected[0].content === selected[1].content) {
+				selected[0].matched = true;
+				selected[1].matched = true;
+			}
+			setTimeout(() => {
+				let aux = 0;
+				cards.forEach(element => {
+					element.matched ? aux++ : '';
+					aux === cards.length && alert('GANASTE!!!!');
+				});
+			}, 0)
+			setTimeout(() => {
+				setSelected(prev => prev = []);
+			}, 800)
+		}
+	}, [selected])
 
+	const handleClick = (card) => {
+		if (selected.length < 2 && !selected.includes(card)) {
+			setSelected(prev => prev = [...prev, card]);
+		}
 	}
 
+	const shuffle = () => cardData.sort(() => Math.random() -0.5 )
+
+	useEffect (()=>{
+		setCards(prev => prev = shuffle())
+	}, [])
+
 	return (
-		<div>
-			{cardData.map((item) => (
+		<div className="memory-game">
+			{cards.map((card) => (
 				<div
-					key={item.id}	
+					key={card.id}	
 					className="card"
-					onClick={()=>handleClick(item)}
+					onClick={()=>handleClick(card)}
 				>
-					{item.content}
+					{card.content}
 				</div>
 			))}
 		</div>
